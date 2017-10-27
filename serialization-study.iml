@@ -8,7 +8,7 @@
       <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/target/generated-sources/colfer" isTestSource="false" generated="true" />
-      <sourceFolder url="file://$MODULE_DIR$/target/generated-sources/protobuf" isTestSource="false" generated="true" />
+      <sourceFolder url="file://$MODULE_DIR$/target/generated-sources/protobuf/java" isTestSource="false" generated="true" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
     <orderEntry type="inheritedJdk" />
@@ -146,6 +146,8 @@
     <orderEntry type="library" name="Maven: org.apache.kafka:connect-json:0.11.0.1" level="project" />
     <orderEntry type="library" name="Maven: org.apache.kafka:connect-api:0.11.0.1" level="project" />
     <orderEntry type="library" name="Maven: org.rocksdb:rocksdbjni:5.0.1" level="project" />
+    <orderEntry type="library" name="Maven: io.confluent:kafka-avro-serializer:1.0" level="project" />
+    <orderEntry type="library" name="Maven: io.confluent:kafka-schema-registry-client:1.0" level="project" />
     <orderEntry type="library" name="Maven: org.apache.avro:avro:1.8.2" level="project" />
     <orderEntry type="library" name="Maven: org.codehaus.jackson:jackson-core-asl:1.9.13" level="project" />
     <orderEntry type="library" name="Maven: org.codehaus.jackson:jackson-mapper-asl:1.9.13" level="project" />
