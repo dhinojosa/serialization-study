@@ -4,8 +4,10 @@ import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
 import com.evolutionnext.kryo.Coach;
+import com.evolutionnext.kryo.LocalDateSerializer;
 import com.evolutionnext.kryo.Stadium;
 import com.evolutionnext.kryo.Team;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.io.FileInputStream;
@@ -16,22 +18,41 @@ import java.time.LocalDate;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class $2_KryoTest {
-    private Team team = new Team("Miami Dolphins", new Coach("Adam", "Gase",
-            LocalDate.of(1978, 3, 29)),
+    private Team team = new Team("Miami Dolphins", new Coach("Adam", "Gase"),
             new Stadium("Hard Rock Stadium", "Miami Gardens", "FL"));
 
-    @Test
-    public void testSerialize() throws FileNotFoundException {
-        Kryo kryo = new Kryo();
-        Output output = new Output(new FileOutputStream("target/team.kryo"));
-        kryo.writeObject(output, team);
-        output.close();
+    private static Kryo kryo = new Kryo();
+
+    @BeforeClass
+    public static void beforeAll() {
+       kryo.addDefaultSerializer(LocalDate.class, new LocalDateSerializer());
     }
 
     @Test
-    public void testDeserialize() throws FileNotFoundException {
-        Kryo kryo = new Kryo();
-        Input input = new Input(new FileInputStream("file.bin"));
+    public void testSerializeDeserializeDate() throws FileNotFoundException, InterruptedException {
+        Output output = new Output(new FileOutputStream("target/dates.kryo"));
+        LocalDate pre = LocalDate.of(2018, 5, 10);
+        kryo.writeObject(output, pre);
+        output.close();
+
+        Thread.sleep(400);
+
+        Input input = new Input(new FileInputStream("target/dates.kryo"));
+        LocalDate post = kryo.readObject(input, LocalDate.class);
+        input.close();
+
+        assertThat(pre).isEqualTo(post);
+    }
+
+    @Test
+    public void testSerializeDeserialize() throws FileNotFoundException, InterruptedException {
+        Output output = new Output(new FileOutputStream("target/team.kryo"));
+        kryo.writeObject(output, team);
+        output.close();
+
+        Thread.sleep(400);
+
+        Input input = new Input(new FileInputStream("target/team.kryo"));
         Team actualTeam = kryo.readObject(input, Team.class);
         input.close();
 

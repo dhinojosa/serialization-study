@@ -7,6 +7,9 @@ public class Team {
     private Coach coach;
     private Stadium stadium;
 
+    public Team() {
+    }
+
     public Team(String name) {
         this.name = name;
     }

@@ -28,7 +28,7 @@ public class $1_AvroTest {
             "King of Pop", Arrays.asList(thriller, bad));
 
     @Test
-    public void testSerialize() throws IOException {
+    public void testSerializeDeserializeArtist() throws IOException, InterruptedException {
         boolean success = file.createNewFile();
         if (! success) throw new RuntimeException("File not created");
         
@@ -37,11 +37,9 @@ public class $1_AvroTest {
         dataFileWriter.create(artist.getSchema(), file);
         dataFileWriter.append(artist);
         dataFileWriter.close();
-    }
 
-    //Obviously run after serialize
-    @Test
-    public void testDeserialize() throws IOException {
+        Thread.sleep(500);
+
         DatumReader<Artist> artistDatumReader = new SpecificDatumReader<>(Artist.class);
         DataFileReader<Artist> dataFileReader = new DataFileReader<>(file, artistDatumReader);
         List<Artist> artistList = new ArrayList<>();

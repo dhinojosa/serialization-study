@@ -3,9 +3,12 @@ package com.evolutionnext.kryo;
 import java.util.Objects;
 
 public class Stadium {
-    private final String state;
-    private final String name;
-    private final String city;
+    private String state;
+    private String name;
+    private String city;
+
+    public Stadium() {
+    }
 
     public Stadium(String name, String city, String state) {
         this.name = name;

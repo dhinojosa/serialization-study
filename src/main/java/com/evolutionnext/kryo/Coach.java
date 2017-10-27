@@ -6,12 +6,13 @@ import java.util.Objects;
 public class Coach {
     private String firstName;
     private String lastName;
-    private LocalDate localDate;
 
-    public Coach(String firstName, String lastName, LocalDate localDate) {
+    public Coach() {
+    }
+
+    public Coach(String firstName, String lastName) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.localDate = localDate;
     }
 
     public String getFirstName() {
@@ -22,23 +23,18 @@ public class Coach {
         return lastName;
     }
 
-    public LocalDate getLocalDate() {
-        return localDate;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Coach coach = (Coach) o;
         return Objects.equals(firstName, coach.firstName) &&
-                Objects.equals(lastName, coach.lastName) &&
-                Objects.equals(localDate, coach.localDate);
+                Objects.equals(lastName, coach.lastName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(firstName, lastName, localDate);
+        return Objects.hash(firstName, lastName);
     }
 
     @Override
@@ -46,7 +42,6 @@ public class Coach {
         final StringBuilder sb = new StringBuilder("Coach{");
         sb.append("firstName='").append(firstName).append('\'');
         sb.append(", lastName='").append(lastName).append('\'');
-        sb.append(", localDate=").append(localDate);
         sb.append('}');
         return sb.toString();
     }
