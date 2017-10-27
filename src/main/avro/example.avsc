@@ -1,0 +1,47 @@
+[
+  {
+    "namespace": "com.evolutionnext.avro",
+    "type": "record",
+    "name": "Album",
+    "fields": [
+      {
+        "name": "name",
+        "type": "string"
+      },
+      {
+        "name": "yearReleased",
+        "type": [
+          "int",
+          "null"
+        ]
+      }
+    ]
+  },
+  {
+    "namespace": "com.evolutionnext.avro",
+    "type": "record",
+    "name": "Artist",
+    "fields": [
+      {
+        "name": "name",
+        "type": "string"
+      },
+      {
+        "name": "alias",
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      {
+        "name": "albums",
+        "doc" : "All the albums recorded by this artist",
+        "type": {
+          "type" : "array",
+          "name" : "albums",
+          "items" : "Album"
+        }
+      }
+    ]
+  }
+]
