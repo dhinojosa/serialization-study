@@ -17,6 +17,7 @@ public class LocalDateSerializer extends Serializer<LocalDate> {
 
     @Override
     public LocalDate read(Kryo kryo, Input input, Class<LocalDate> type) {
-        return LocalDate.of(input.readInt(), input.readInt(), input.readInt());
+        return LocalDate.of(input.readInt(), input.readInt(),
+                            input.readInt());
     }
 }

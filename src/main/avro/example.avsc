@@ -2,6 +2,7 @@
   {
     "namespace": "com.evolutionnext.avro",
     "type": "record",
+    "doc" : "An music album",
     "name": "Album",
     "fields": [
       {

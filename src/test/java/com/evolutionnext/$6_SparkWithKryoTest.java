@@ -10,9 +10,13 @@ import org.apache.spark.serializer.KryoRegistrator;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 
-//Source: https://github.com/holdenk/learning-spark-examples/blob/master/src/main/java/com/oreilly/learningsparkexamples/java/BasicAvgWithKryo.java
+//Source: https://github.com/holdenk/learning-spark-examples/
+// blob/master/src/main/java/com/oreilly/learningsparkexamples
+// /java/BasicAvgWithKryo.java
 public class $6_SparkWithKryoTest {
 
     static class AvgCount implements java.io.Serializable {
@@ -44,12 +48,18 @@ public class $6_SparkWithKryoTest {
     public void testProcessData() throws InterruptedException {
         String master = "local[*]";
 
-        SparkConf conf = new SparkConf().setMaster(master).setAppName("basicavgwithkyro");
-        conf.set("spark.serializer", "org.apache.spark.serializer.KryoSerializer");
-        conf.set("spark.kryo.registrator", AvgRegistrator.class.getName());
+        SparkConf conf = new SparkConf()
+                .setMaster(master)
+                .setAppName("basicavgwithkyro");
+        //conf.set("spark.serializer", "org.apache.spark.serializer.KryoSerializer");
+        //conf.set("spark.kryo.registrator", AvgRegistrator.class.getName());
         JavaSparkContext sc = new JavaSparkContext(conf);
-        JavaRDD<Integer> rdd = sc.parallelize(Arrays.asList(1, 2, 3, 4));
-        Function2<AvgCount, Integer, AvgCount> addAndCount = (Function2<AvgCount, Integer, AvgCount>) (a, x) -> {
+        JavaRDD<Integer> rdd = sc.parallelize
+                (IntStream.range(1, 1000000).boxed()
+                          .collect(Collectors.toList()), 3)
+                                 .map(x -> x + 20);
+        Function2<AvgCount, Integer, AvgCount> addAndCount =
+                (Function2<AvgCount, Integer, AvgCount>) (a, x) -> {
             a.total_ += x;
             a.num_ += 1;
             return a;
@@ -64,7 +74,7 @@ public class $6_SparkWithKryoTest {
         System.out.println(result.avg());
 
 
-        Thread.sleep(3 * 60 * 1000);
+        Thread.sleep( 2 * 60 * 1000);
     }
 }
 

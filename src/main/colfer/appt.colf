@@ -1,0 +1,16 @@
+// Package demo offers a demonstration.
+// These comment lines will end up in the generated code.
+package datebook
+
+type appointment struct {
+	id        int64
+	datetime  timestamp
+	duration  int32
+	asset     asset
+	cancelled bool
+}
+
+type asset struct {
+	name      text
+	assetType text
+}

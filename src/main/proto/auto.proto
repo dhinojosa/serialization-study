@@ -1,29 +1,30 @@
-syntax = "proto2";
+syntax = "proto3";
 
-package tutorial;
+package automobile;
 
 option java_package = "com.evolutionnext.proto";
-option java_outer_classname = "AddressBookProtos";
+option java_outer_classname = "AutomobileProtos";
 
-message Person {
-  required string name = 1;
-  required int32 id = 2;
-  optional string email = 3;
 
-  enum PhoneType {
-    MOBILE = 0;
-    HOME = 1;
-    WORK = 2;
-  }
-
-  message PhoneNumber {
-    required string number = 1;
-    optional PhoneType type = 2 [default = HOME];
-  }
-
-  repeated PhoneNumber phones = 4;
+/* Comments are in the C/Java style
+ * The = 1, = 2, = 3, etc are tags
+ * Should not be changed one it is in use */
+message Car {
+  Manufacturer make = 1;
+  string model = 2;
+  sint32 year = 3;
 }
 
-message AddressBook {
-  repeated Person people = 1;
+message Manufacturer {
+  string name = 1;
+  int32 yearEstablished = 2;
+  string ceo = 3;
+
+  repeated Car cars = 4;
 }
+
+message Manufacturers {
+  repeated Manufacturer result = 1;
+}
+
+

@@ -18,8 +18,11 @@ import java.time.LocalDate;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class $2_KryoTest {
-    private Team team = new Team("Miami Dolphins", new Coach("Adam", "Gase"),
-            new Stadium("Hard Rock Stadium", "Miami Gardens", "FL"));
+    private Team team = new Team("Miami Dolphins",
+            new Coach("Adam", "Gase",
+                    LocalDate.of(1978, 3, 29)),
+            new Stadium("Hard Rock Stadium",
+                    "Miami Gardens", "FL"));
 
     private static Kryo kryo = new Kryo();
 
@@ -29,23 +32,7 @@ public class $2_KryoTest {
     }
 
     @Test
-    public void testSerializeDeserializeDate() throws FileNotFoundException, InterruptedException {
-        Output output = new Output(new FileOutputStream("target/dates.kryo"));
-        LocalDate pre = LocalDate.of(2018, 5, 10);
-        kryo.writeObject(output, pre);
-        output.close();
-
-        Thread.sleep(400);
-
-        Input input = new Input(new FileInputStream("target/dates.kryo"));
-        LocalDate post = kryo.readObject(input, LocalDate.class);
-        input.close();
-
-        assertThat(pre).isEqualTo(post);
-    }
-
-    @Test
-    public void testSerializeDeserialize() throws FileNotFoundException, InterruptedException {
+    public void testSerializeDeserializeTeam() throws FileNotFoundException, InterruptedException {
         Output output = new Output(new FileOutputStream("target/team.kryo"));
         kryo.writeObject(output, team);
         output.close();
@@ -59,5 +46,6 @@ public class $2_KryoTest {
         assertThat(actualTeam).isEqualTo(team);
         assertThat(actualTeam.getCoach()).isEqualTo(team.getCoach());
         assertThat(actualTeam.getStadium()).isEqualTo(team.getStadium());
+        assertThat(actualTeam.getCoach().getBirthDate()).isEqualTo(team.getCoach().getBirthDate());
     }
 }
